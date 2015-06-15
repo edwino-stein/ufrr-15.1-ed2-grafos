@@ -6,6 +6,7 @@ composer.lock
 .~lock.*
 .idea
 .o
+nbproject/
 
 #############################
 # Arquivos Gerados pelo OSX #
