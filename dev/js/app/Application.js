@@ -5,7 +5,8 @@
  var App = {
 
     require: [
-        'Util'
+        'Util',
+        'View.SvgRaster',
     ],
 
     modules:{},
