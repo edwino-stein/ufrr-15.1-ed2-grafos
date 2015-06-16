@@ -7,6 +7,7 @@
     require: [
         'Util',
         'View.SvgRaster',
+        'View.Navigation'
     ],
 
     modules:{},
