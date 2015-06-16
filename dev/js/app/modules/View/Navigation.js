@@ -140,13 +140,28 @@ App.define('View.Navigation',{
         this.height = 500;
         this.setPosition(this.getX(), this.getY());
     },
-    
+
+    isVertice: function(el){
+
+        while(el !== this.svgEl){
+            if(el.classList.contains('vertice'))
+                return true;
+
+            el = el.parentNode;
+        }
+
+        return false;
+    },
+
     init: function(){
         var me = this;
         me.svgEl = $('#canvas svg')[0];
         me.toOrigin();
-        
+
         $(me.svgEl).on('mousedown', function(e){
+
+            if(me.isVertice(e.target)) return;
+
             $('#canvas').addClass('moving');
             me.onMouseDown(e.pageX, e.pageY, e);
         })
