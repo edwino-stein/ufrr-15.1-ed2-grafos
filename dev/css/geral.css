@@ -1,0 +1,23 @@
+html,
+body,
+#canvas,
+#canvas > svg {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#canvas > svg {
+    margin-bottom: -4px;
+}
+
+#canvas.moving{
+    cursor: move;
+}
+
+#bg-grid > line {
+    stroke: #ECECEC;
+    stroke-width: 0.5px;
+}
+
