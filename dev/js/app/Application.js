@@ -33,6 +33,7 @@
 
         if(!current[name]) current[name] = config;
         if(current[name].initted) return;
+        current[name].get = this.get;
         if(current[name].init) current[name].init();
         current[name].initted = true;
     },
@@ -41,7 +42,7 @@
 
         namespace = namespace.split('.');
         var name = namespace.pop(),
-            current = this.modules;
+            current = App.modules;
 
         for(var i in namespace){
             if(!current[namespace[i]]) return null;
