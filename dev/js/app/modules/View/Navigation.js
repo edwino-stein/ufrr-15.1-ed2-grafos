@@ -62,18 +62,24 @@ App.define('View.Navigation',{
         return this.getY() + this.getHeight()/2;
     },
     
+    calculateScale: function(){
+        var viewBox = this.svgEl.viewBox.baseVal,
+            scaleByHeight = viewBox.height/$(this.svgEl).height(),
+            scaleByWidth = viewBox.width/$(this.svgEl).width();
+        
+        this.scale = scaleByHeight >= scaleByWidth ? scaleByHeight : scaleByWidth;
+    },
+    
+    getScale: function(){       
+        return this.scale;
+    },
+    
     onMouseDown: function(x, y, e){
         
         this.mouseDown = true;
         this.lastX = x;
         this.lastY = y;
-        
-        var viewBox = this.svgEl.viewBox.baseVal,
-            scaleByHeight = viewBox.height/$(this.svgEl).height(),
-            scaleByWidth = viewBox.width/$(this.svgEl).width();
-    
-        this.scale = scaleByHeight >= scaleByWidth ? scaleByHeight : scaleByWidth;
-        
+                
         if(this.limits === null){
             var SvgRaster = this.get('View.SvgRaster');
             this.limits = {
@@ -89,7 +95,6 @@ App.define('View.Navigation',{
         this.mouseDown = false;
         this.lastX = 0;
         this.lastY = 0;
-        this.scale = 0;
     },
     
     onMouseMove: function(x, y, e){
@@ -97,8 +102,9 @@ App.define('View.Navigation',{
         if(!this.mouseDown)
             return;
         
-        var dx = this.getX() + (this.lastX - x)*this.scale,
-            dy = this.getY() + (this.lastY - y)*this.scale;
+        var scale = this.getScale(),
+            dx = this.getX() + (this.lastX - x)*scale,
+            dy = this.getY() + (this.lastY - y)*scale;
         
         dx = dx >= this.limits.minX ? dx : this.limits.minX;
         dx = dx + this.getWidth() <= this.limits.maxX ? dx : this.limits.maxX - this.getWidth();
@@ -122,6 +128,7 @@ App.define('View.Navigation',{
         this.width /= 1.2;
         this.height /= 1.2;
         this.setPosition(this.getX(), this.getY());
+        this.calculateScale();
     },
     
     zoomOut: function(){
@@ -132,6 +139,7 @@ App.define('View.Navigation',{
         this.width *= 1.2;
         this.height *= 1.2;
         this.setPosition(this.getX(), this.getY());
+        this.calculateScale();
     },
     
     initialZoom: function(){
@@ -157,7 +165,12 @@ App.define('View.Navigation',{
         var me = this;
         me.svgEl = $('#canvas svg')[0];
         me.toOrigin();
-
+        me.calculateScale();
+        
+        $(window).resize(function(){
+            me.calculateScale();
+        });
+        
         $(me.svgEl).on('mousedown', function(e){
 
             if(me.isVertice(e.target)) return;
