@@ -7,12 +7,12 @@ App.define('View.SvgRaster',{
     canvasMinY: -1000,
     canvasMaxX: 1000,
     canvasMaxY: 1000,
-
+    
     verticeTextAttr:{
         'font-size': 20,
         'font-family': '"Helvetica Neue",Helvetica,Arial,sans-serif',
         'text-anchor': 'middle',
-        'dominant-baseline': 'middle',
+        'dominant-baseline': 'central',
         'text-align': 'center'
     },
 
@@ -23,7 +23,7 @@ App.define('View.SvgRaster',{
     },
 
     maxTextLength: 12,
-    textMargin: 5,
+    textMargin: 10,
 
     store:{},
 
