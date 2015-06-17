@@ -126,7 +126,7 @@ App.define('View.Navigation',{
     
     zoomOut: function(){
         
-        if(this.zoom < this.minZoom) return;
+        if(this.zoom <= this.minZoom) return;
         
         this.zoom--;
         this.width *= 1.2;
