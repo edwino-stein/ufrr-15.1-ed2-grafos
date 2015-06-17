@@ -101,25 +101,44 @@ App.define('View.SvgRaster',{
         g.add(circle, text);
         g.addClass('vertice');
         g.attr('data-value', value);
-
+        this.enableDraggable(g);
+        
         this.store['vertices'].add(g);
         return g;
     },
-
+        
     getVertice: function(value){
         return this.store.vertices.select('.vertice[data-value="'+value+'"]');
     },
-
+    
+    enableDraggable: function(e){
+        var me = this;
+        e.drag(
+            function(dx, dy, pageX, pageY, event){
+                me.get('View.Canvas').onDrag(this, dx, dy, event);
+            },
+            function() {
+                me.get('View.Canvas').onDragStart(this, arguments[2]);
+            },
+            function(e){
+                me.get('View.Canvas').onDragEnds(this, e);
+            }
+        );
+    },
+    
     init: function(){
         var me = this;
         me.svgEl = $('#canvas svg')[0];
         me.snapSvgRoot = new Snap(me.svgEl);
-        this.rasterGrid();
-
-        this.store['edges'] = this.snapSvgRoot.g();
-        this.store['edges'].attr('id', 'edges');
-        this.store['vertices'] = this.snapSvgRoot.g();
-        this.store['vertices'].attr('id', 'vertices');
+        
+        me.rasterGrid();
+        me.store['edges'] = this.snapSvgRoot.g();
+        me.store['edges'].attr('id', 'edges');
+        me.store['vertices'] = this.snapSvgRoot.g();
+        me.store['vertices'].attr('id', 'vertices');
+        
+        me.createVertice(1234565, 0, 0);
+        me.createVertice(2, 10, 10);
     }
 });
 

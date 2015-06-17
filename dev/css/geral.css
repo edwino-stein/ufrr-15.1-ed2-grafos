@@ -21,3 +21,13 @@ body,
     stroke-width: 0.5px;
 }
 
+
+#vertices > .vertice{
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+}
+
+#vertices > .dragging{
+    cursor: -webkit-grabbing;
+    cursor: -moz-grabbing;
+}
