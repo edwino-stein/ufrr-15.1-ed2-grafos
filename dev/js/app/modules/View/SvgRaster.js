@@ -162,20 +162,28 @@ App.define('View.SvgRaster',{
 
             text.attr(i, this.edgeTextAttr[i]);
         }
-        
+
         return text;
-        
     },
-    
+
     createEdge: function (origin, target, weight){
-        
+
         weight = typeof(weight) === 'number' ? weight.toString() : weight;
         if(weight.length > this.maxEdgeTextLength) return null;
-        
+
         var points, line, circle, radius, text, g;
-        
+
+        g = this.snapSvgRoot.g();
+        g.addClass('edge');
+        g.attr({
+            'data-origin': origin.attr('data-value'),
+            'data-target': target.attr('data-value'),
+            'data-weight': weight
+        });
+
+
         if(origin === target){
-            
+
             origin = origin.select('circle');
             radius = parseFloat(origin.attr('r'));
             points = new Point(origin.attr('cx'), origin.attr('cy'));
@@ -234,15 +242,7 @@ App.define('View.SvgRaster',{
             );
             circle.attr(this.edgeCircleAttr);
         }
-        
-        g = this.snapSvgRoot.g();
-        g.addClass('edge');
-        g.attr({
-            'data-origin': origin.attr('data-value'),
-            'data-target': target.attr('data-value'),
-            'data-weight': weight
-        });
-        
+
         g.add(line, circle,text);
         this.store['edges'].add(g);
     },
