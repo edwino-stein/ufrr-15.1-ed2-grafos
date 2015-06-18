@@ -13,10 +13,65 @@
         <script type="text/javascript" src="js/Vector.js"></script>
         <script type="text/javascript" src="js/app/Application.js"></script>
         
+        <script>
+            jQuery(document).on('AppReady', function(){
+                
+                App.get('View.SvgRaster').createVertice(1, 0, -100);
+                App.get('View.SvgRaster').createVertice(12345, 100, 0);
+                App.get('View.SvgRaster').createVertice(5, -100, 0);
+
+                App.get('View.SvgRaster').createEdge(
+                    App.get('View.SvgRaster').getVertice(12345),
+                    App.get('View.SvgRaster').getVertice(1),
+                    1
+                );
+        
+                App.get('View.SvgRaster').createEdge(
+                    App.get('View.SvgRaster').getVertice(1),
+                    App.get('View.SvgRaster').getVertice(1),
+                    123
+                );
+
+                App.get('View.SvgRaster').createEdge(
+                    App.get('View.SvgRaster').getVertice(1),
+                    App.get('View.SvgRaster').getVertice(12345),
+                    3
+                );
+
+                App.get('View.SvgRaster').createEdge(
+                    App.get('View.SvgRaster').getVertice(1),
+                    App.get('View.SvgRaster').getVertice(5),
+                    123456
+                );
+
+                App.get('View.SvgRaster').createEdge(
+                    App.get('View.SvgRaster').getVertice(5),
+                    App.get('View.SvgRaster').getVertice(12345),
+                    3
+                );
+        
+                App.get('View.SvgRaster').createEdge(
+                    App.get('View.SvgRaster').getVertice(5),
+                    App.get('View.SvgRaster').getVertice(5),
+                    1
+                );
+            });
+        </script>
     </head>
     <body>
         <div id="canvas">
             <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" version="1.1">
+                <defs>
+                    <marker id="markerCircle" markerWidth="8" markerHeight="8" refX="5" refY="5">
+                        <circle cx="5" cy="5" r="3" style="stroke: none; fill:#000000;"/>
+                    </marker>
+                    <marker id="markerArrow" markerWidth="13" markerHeight="13" refX="9" refY="6" orient="auto">
+                        <path d="M2,2 L2,11 L10,6 L2,2" style="fill: #000000;" />
+                    </marker>
+                    <marker id="markerArrowSelf" markerWidth="13" markerHeight="13" refX="5.5" refY="3.5" orient="auto">
+                        <path d="M2,2 L2,11 L10,6 L2,2" style="fill: #000000;" transform="rotate(-35)" />
+                    </marker>
+                </defs>
             </svg>
         </div>
         <div style="position: fixed; top: 0; left: 0;">
