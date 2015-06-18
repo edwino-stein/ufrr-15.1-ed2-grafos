@@ -3,7 +3,8 @@ App.define('View.Canvas', {
     lastX: 0,
     lastY: 0,
     svgEl: null,
-    
+    selected: null,
+
     getScale: function(){
         return this.get('View.Navigation').getScale();
     },
@@ -50,13 +51,15 @@ App.define('View.Canvas', {
             this.lastY = circule.attr('cy');
             el.addClass('dragging');
             this.hideEdgeWeight(el);
+
+            this.selectVertice(el);
         }
     },
-    
+
     onDrag: function(el, dx, dy, e){
-        
+
         var scale = this.getScale();
-        
+
         if(el.hasClass('vertice')){
             el.select('circle').attr({
                 cx: +this.lastX + dx * scale,
@@ -163,10 +166,29 @@ App.define('View.Canvas', {
                 text.setAttribute('x', point.x);
                 text.setAttribute('y', point.y);
             }
-            
         });
     },
-    
+
+    selectVertice: function(vertice){
+
+        this.deselect();
+        vertice.addClass('selected');
+
+        $('#vertices').append(vertice.node);
+        this.selected = vertice;
+
+        var value = this.selected.attr('data-value');
+        $('#edges').append($('#edges > .edge[data-origin='+value+'], #edges > .edge[data-target='+value+']'));
+
+        $('#canvas').trigger('select', [vertice]);
+    },
+
+    deselect: function(){
+        if(this.selected === null) return;
+        $('#canvas').trigger('deselect', [this.selected]);
+        this.selected.removeClass('selected');
+    },
+
     init: function(){
         this.svgEl = $('#canvas svg')[0];
     }
