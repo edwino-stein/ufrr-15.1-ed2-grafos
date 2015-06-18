@@ -55,10 +55,14 @@
                     App.get('View.SvgRaster').getVertice(5),
                     1
                 );
+
+                $('#toggle-console').click(function (){
+                   $('body').toggleClass('show-console');
+                });
             });
         </script>
     </head>
-    <body>
+    <body class="show-console">
         <div id="canvas">
             <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" version="1.1">
                 <defs>
@@ -73,9 +77,39 @@
                     </marker>
                 </defs>
             </svg>
+            <div id="ui-nav">
+                <div>
+                    <button id="zoom-in" class="btn btn-default"><i class="glyphicon glyphicon-plus"></i></button>
+                </div>
+                <div>
+                    <button id="zoom-out" class="btn btn-default"><i class="glyphicon glyphicon-minus"></i></button>
+                </div>
+                <div id="position">
+                    <span class="x">xxxxxxxxx</span>,
+                    <span class="y">yyyyyyyyy</span>
+                </div>
+            </div>
+            <div id="ui-controllers">
+                <button class="btn btn-default" ><i class="glyphicon glyphicon-asterisk"></i></button>
+                <button class="btn btn-default" ><i class="glyphicon glyphicon-trash"></i></button>
+                <button class="btn btn-default" ><i class="glyphicon glyphicon-link"></i></button>
+                <button class="btn btn-default" id="toggle-console" ><i class="glyphicon glyphicon-console"></i></button>
+            </div>
         </div>
-        <div style="position: fixed; top: 0; left: 0;">
-            <button id="zoom-in" class="btn btn-default">+</button><button id="zoom-out" class="btn btn-default">-</button>
+        
+        <div id="iu-console">
+            <div class="output">
+                output
+            </div>
+            <div class="input">
+                <div class="input-text">
+                    <input class="form-control" type="text" name="console-input" />
+                    <button><i class="glyphicon glyphicon-ok"></i></button>
+                </div>
+                <div class="input-file" >
+                    <button><i class="glyphicon glyphicon-open-file"></i></button>
+                </div>
+            </div>
         </div>
     </body>
 </html>
