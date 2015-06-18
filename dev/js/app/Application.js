@@ -12,6 +12,7 @@
     ],
 
     modules:{},
+    modulesCounter: 0,
     modulesPath: 'js/app/modules/',
 
     load: function (module) {
@@ -39,6 +40,10 @@
         current[name].get = this.get;
         if(current[name].init) current[name].init();
         current[name].initted = true;
+        
+        this.modulesCounter++;
+        if(this.modulesCounter >= this.require.length)
+            jQuery(document).trigger('AppReady', []);
     },
 
     get: function(namespace){
@@ -55,11 +60,11 @@
         return current[name] ? current[name] : null;
     },
 
-    onReady: function(){
+    init: function(){
         for (var index in this.require){
             this.load(this.require[index]);
         }
     }
 };
 
-jQuery(document).ready(function(){App.onReady();});
+jQuery(document).ready(function(){App.init();});
