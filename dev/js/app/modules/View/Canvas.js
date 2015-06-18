@@ -12,6 +12,21 @@ App.define('View.Canvas', {
         return this.get('View.SvgRaster').getVertice(value);
     },
     
+    enableDraggable: function(e){
+        var me = this;
+        e.drag(
+            function(dx, dy, pageX, pageY, event){
+                me.onDrag(this, dx, dy, event);
+            },
+            function() {
+                me.onDragStart(this, arguments[2]);
+            },
+            function(e){
+                me.onDragEnds(this, e);
+            }
+        );
+    },
+    
     calculateEdgePosition: function(origin, target){
         
         var originR = parseFloat(origin.attr('r')) + parseFloat(origin.attr('stroke-width')),

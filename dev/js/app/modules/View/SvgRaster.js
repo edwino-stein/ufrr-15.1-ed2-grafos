@@ -130,7 +130,7 @@ App.define('View.SvgRaster',{
         g.add(circle, text);
         g.addClass('vertice');
         g.attr('data-value', value);
-        this.enableDraggable(g);
+        this.get('View.Canvas').enableDraggable(g);
         
         this.store['vertices'].add(g);
         return g;
@@ -245,21 +245,6 @@ App.define('View.SvgRaster',{
         
         g.add(line, circle,text);
         this.store['edges'].add(g);
-    },
-    
-    enableDraggable: function(e){
-        var me = this;
-        e.drag(
-            function(dx, dy, pageX, pageY, event){
-                me.get('View.Canvas').onDrag(this, dx, dy, event);
-            },
-            function() {
-                me.get('View.Canvas').onDragStart(this, arguments[2]);
-            },
-            function(e){
-                me.get('View.Canvas').onDragEnds(this, e);
-            }
-        );
     },
     
     init: function(){
