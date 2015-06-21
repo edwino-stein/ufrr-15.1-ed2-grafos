@@ -62,11 +62,16 @@
                 
                 $(function () {
                     $('[data-toggle="tooltip"]').tooltip()
-                })
+                });
+                
+                $('#canvas svg').on('positionChange',function(e, x, y){
+                    $('#position .x').html(x.toFixed(6));
+                    $('#position .y').html(y.toFixed(6));
+                });
             });
         </script>
     </head>
-    <body class="show-console">
+    <body>
         <div id="canvas">
             <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" version="1.1">
                 <defs>
@@ -93,8 +98,8 @@
                     </button>
                 </div>
                 <div id="position">
-                    <span class="x">xxxxxxxxx</span>,
-                    <span class="y">yyyyyyyyy</span>
+                    X: <span class="x">0</span>,
+                    Y: <span class="y">0</span>
                 </div>
             </div>
             <div id="ui-controllers">

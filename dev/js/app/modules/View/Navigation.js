@@ -21,6 +21,13 @@ App.define('View.Navigation',{
         this.setX(x);
         this.setY(y);
         this.svgEl.setAttribute('viewBox', this.x+' '+this.y+' '+this.width+' '+this.height);
+        
+        $(this.svgEl).trigger('positionChange', [
+            this.getCenterX(),
+            this.getCenterY(),
+            x,
+            y
+        ]);
     },
     
     toOrigin:function(){
@@ -111,7 +118,6 @@ App.define('View.Navigation',{
         
         dy = dy >= this.limits.minY ? dy : this.limits.minY;
         dy = dy + this.getHeight() <= this.limits.maxY ? dy : this.limits.maxY - this.getHeight();
-        
         
         this.setPosition(dx, dy);
         this.lastX = x;
