@@ -8,7 +8,8 @@
         'Util',
         'View.SvgRaster',
         'View.Navigation',
-        'View.Canvas'
+        'View.Canvas',
+        'Model.Graph'
     ],
 
     modules:{},
