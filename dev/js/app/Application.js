@@ -9,6 +9,7 @@
         'View.SvgRaster',
         'View.Navigation',
         'View.Canvas',
+        'ViewModel.Actions',
         'Model.Graph'
     ],
 

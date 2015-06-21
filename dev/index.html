@@ -17,46 +17,17 @@
         <script>
             jQuery(document).on('AppReady', function(){
                 
-                App.get('View.SvgRaster').createVertice(1, 0, -100);
-                App.get('View.SvgRaster').createVertice(12345, 100, 0);
-                App.get('View.SvgRaster').createVertice(5, -100, 0);
-
-                App.get('View.SvgRaster').createEdge(
-                    App.get('View.SvgRaster').getVertice(12345),
-                    App.get('View.SvgRaster').getVertice(1),
-                    1
-                );
-        
-                App.get('View.SvgRaster').createEdge(
-                    App.get('View.SvgRaster').getVertice(1),
-                    App.get('View.SvgRaster').getVertice(1),
-                    123
-                );
-
-                App.get('View.SvgRaster').createEdge(
-                    App.get('View.SvgRaster').getVertice(1),
-                    App.get('View.SvgRaster').getVertice(12345),
-                    3
-                );
-
-                App.get('View.SvgRaster').createEdge(
-                    App.get('View.SvgRaster').getVertice(1),
-                    App.get('View.SvgRaster').getVertice(5),
-                    123456
-                );
-
-                App.get('View.SvgRaster').createEdge(
-                    App.get('View.SvgRaster').getVertice(5),
-                    App.get('View.SvgRaster').getVertice(12345),
-                    3
-                );
-        
-                App.get('View.SvgRaster').createEdge(
-                    App.get('View.SvgRaster').getVertice(5),
-                    App.get('View.SvgRaster').getVertice(5),
-                    1
-                );
-
+                App.get('ViewModel.Actions').createVertice(1);
+                App.get('ViewModel.Actions').createVertice(123);
+                App.get('ViewModel.Actions').createVertice(5);
+                
+                App.get('ViewModel.Actions').linkVertices(123, 1, 1);
+                App.get('ViewModel.Actions').linkVertices(1, 1, 123);
+                App.get('ViewModel.Actions').linkVertices(1, 123, 3);
+                App.get('ViewModel.Actions').linkVertices(1, 5, 2);
+                App.get('ViewModel.Actions').linkVertices(5, 123, 10);
+                App.get('ViewModel.Actions').linkVertices(5, 5, 1);
+                
                 $('#toggle-console').click(function (){
                    $('body').toggleClass('show-console');
                 });
