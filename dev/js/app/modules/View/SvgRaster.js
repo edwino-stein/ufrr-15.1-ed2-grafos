@@ -135,7 +135,19 @@ App.define('View.SvgRaster',{
         this.store['vertices'].add(g);
         return g;
     },
-      
+    
+    removeVertice: function(vertice){
+        
+        var me = this,
+            value = vertice.attr('data-value');
+        
+        $('#edges > .edge[data-origin='+value+'], #edges > .edge[data-target='+value+']').each(function(i, edge){
+            me.store['edges'].node.removeChild(edge);
+        });
+        
+        me.store['vertices'].node.removeChild(vertice.node);
+    },
+    
     getVertice: function(value){
         return this.store.vertices.select('.vertice[data-value="'+value+'"]');
     },
@@ -245,6 +257,16 @@ App.define('View.SvgRaster',{
 
         g.add(line, circle,text);
         this.store['edges'].add(g);
+    },
+    
+    removeEdge: function(origin, target){
+        
+        origin = origin.attr('data-value');
+        target = target.attr('data-value');
+        var edge = $('#edges .edge[data-origin='+origin+'][data-target='+target+']')[0];
+        
+        if(!edge) return;
+        this.store['edges'].node.removeChild(edge);
     },
     
     init: function(){
