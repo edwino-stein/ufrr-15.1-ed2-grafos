@@ -25,7 +25,16 @@ App.define('Model.Graph',{
     search: function(handle){
         this.graph.each(handle);
     },
-
+    
+    minPath: function(origin, target){
+        var minPath = this.graph.minPath(origin, target);
+        
+        if(!minPath.hasVertice(origin) || !minPath.hasVertice(target))
+            return null;
+        
+        return minPath;
+    },
+    
     init: function(){
         this.graph = new Graph();
     }

@@ -193,3 +193,16 @@ body,
 #edges .visited text{
     fill: #f50000;
 }
+
+#vertices > .min-path-vertice > circle{
+    fill: #00f500;
+}
+
+#edges .min-path-vertice line,
+#edges .min-path-vertice circle{
+    stroke: #00f500;
+}
+
+#edges .min-path-vertice text{
+    fill: #00f500;
+}

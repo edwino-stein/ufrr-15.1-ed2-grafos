@@ -109,7 +109,6 @@ App.define('ViewModel.Actions',{
 
         graph.search(function(vertice, origin){
             founded.push(vertice);
-            count++;
             me.animationsTimeOut.push(
                 setTimeout(function(){
 
@@ -123,12 +122,65 @@ App.define('ViewModel.Actions',{
 
                 }, time*count)
             );
+            count++;
         });
 
         // TODO: Erro no console apenas
         console.log('Encontrado:', founded);
     },
+    
+    minPath: function(origin, target){
+        
+        var me = this,
+            graph = me.getGraph(),
+            raster = me.getRaster(),
+            result;
+        
+        result = graph.minPath(origin, target);
+        
+        if(result === null){
+            // TODO: Erro no console e toast
+            console.log("Não existe caminho");
+            return;
+        }
+        
+        me.clearAnimationsTimeOut();
+        me.animationsTimeOut = [];
+        me.clearClasses();
+        
+        var time = me.getTransitionTime(),
+            count = 0,
+            handle, vertices;
+        
+        handle = function(vertice, edge){
+            
+            me.animationsTimeOut.push(
+                    
+                setTimeout(function(){
 
+                    if(edge !== null)
+                        edge.classList.add('min-path-vertice');
+    
+                    vertice.addClass('min-path-vertice');
+                }, time*count)
+            );
+
+            count++;
+        };
+        
+        vertices = result.vertices;
+        for(var i in vertices){
+            handle(
+                raster.getVertice(vertices[i]),
+                vertices[i] === origin ?
+                    null : $('#edges > .edge[data-origin='+vertices[i - 1]+'][data-target='+vertices[i]+']')[0]
+            );
+        }
+        
+        // TODO: Erro no console apenas
+        console.log(result);
+    },
+    
     clearAnimationsTimeOut: function(){
 
         if(this.animationsTimeOut === null) return;
@@ -141,9 +193,9 @@ App.define('ViewModel.Actions',{
     },
 
     clearClasses: function(){
-
-        $('.visited').each(function(i, vertice){
+        $('.visited, .min-path-vertice').each(function(i, vertice){
             vertice.classList.remove('visited');
+            vertice.classList.remove('min-path-vertice');
         });
     },
 
