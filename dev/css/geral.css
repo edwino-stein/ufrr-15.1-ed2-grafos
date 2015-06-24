@@ -180,3 +180,16 @@ body,
 #vertices > .selected > circle{
     fill: #aaa;
 }
+
+#vertices > .visited > circle{
+    fill: #f50000;
+}
+
+#edges .visited line,
+#edges .visited circle{
+    stroke: #f50000;
+}
+
+#edges .visited text{
+    fill: #f50000;
+}

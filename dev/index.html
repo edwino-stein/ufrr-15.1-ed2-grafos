@@ -25,6 +25,7 @@
                 App.get('ViewModel.Actions').createVertice(123);
                 App.get('ViewModel.Actions').createVertice(5);
                 App.get('ViewModel.Actions').createVertice(7);
+                App.get('ViewModel.Actions').createVertice(9);
 
 
                 App.get('ViewModel.Actions').linkVertices(123, 1, 1);
@@ -35,6 +36,7 @@
                 App.get('ViewModel.Actions').linkVertices(5, 5, 1);
                 App.get('ViewModel.Actions').linkVertices(5, 7, 2);
                 App.get('ViewModel.Actions').linkVertices(7, 1);
+                App.get('ViewModel.Actions').linkVertices(123, 9);
 
                 $('#toggle-console').click(function (){
                    $('body').toggleClass('show-console');

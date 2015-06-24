@@ -21,7 +21,11 @@ App.define('Model.Graph',{
     unlinkVerties: function(origin, target){
         return this.graph.unlink(origin, target);
     },
-    
+
+    search: function(handle){
+        this.graph.each(handle);
+    },
+
     init: function(){
         this.graph = new Graph();
     }
