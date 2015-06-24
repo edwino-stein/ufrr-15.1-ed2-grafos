@@ -15,12 +15,13 @@ App.define('ViewModel.Actions',{
             console.log('O vertice já existe');
             return false;
         }
-        
-        this.getRaster().createVertice(value, 0, 0);
+
+        var point = App.get('View.Canvas').getFreePoint();
+        this.getRaster().createVertice(value, point.x, point.y);
     },
-    
+
     removeVertice: function(value){
-        
+
         if(!this.getGraph().removeVertice(value)){
             // TODO: Erro no console e no toast
             console.log('O vertice não existe');

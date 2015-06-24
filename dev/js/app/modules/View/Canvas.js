@@ -8,11 +8,138 @@ App.define('View.Canvas', {
     getScale: function(){
         return this.get('View.Navigation').getScale();
     },
-    
+
     getVertice: function(value){
         return this.get('View.SvgRaster').getVertice(value);
     },
-    
+
+    isInArea: function(point, reference, range){
+        return (point.x >= reference.x - range && point.x <= reference.x + range) &&
+               (point.y >= reference.y - range && point.y <= reference.y + range);
+    },
+
+    getFreePoint: function(){
+
+        var me = this,
+            points = [],
+            point = new Point(0, 0),
+            p, f;
+
+        var r = 100,
+            d = r/2,
+            x = r,
+            y = 0;
+
+        $('#vertices .vertice circle').each(function(i, e){
+            p = new Point(e.getAttribute('cx'), e.getAttribute('cy'));
+
+            if(me.isInArea(new Point(0, 0), p, r/2)){
+                point = null;
+            }
+
+            points.push(p);
+        });
+
+        //Na origem
+        if(point !== null) return point;
+
+        while(r <= 1000){
+
+            //Primeiro quadrante
+            x = r;
+            y = 0;
+
+            while(x >= 0 && y >= r*(-1)){
+
+                p = new Point(x, y);
+                f = true;
+
+                for(var i in points){
+                    if(me.isInArea(points[i], p, d)){
+                        f = false;
+                        break;
+                    }
+                }
+
+                if(f) return new Point(x, y);
+
+                x -= d;
+                y -= d;
+            }
+
+            //Segundo quadrante
+            x = 0;
+            y = r*(-1);
+
+            while(x >= r*(-1) && y <= 0){
+
+                p = new Point(x, y);
+                f = true;
+
+                for(var i in points){
+                    if(me.isInArea(points[i], p, d)){
+                        f = false;
+                        break;
+                    }
+                }
+
+                if(f) return new Point(x, y);
+
+                x -= d;
+                y += d;
+            }
+
+            //Terceiro quadrante
+            x = r*(-1);
+            y = 0;
+
+            while(x <= 0 && y <= r){
+
+                p = new Point(x, y);
+                f = true;
+
+                for(var i in points){
+                    if(me.isInArea(points[i], p, d)){
+                        f = false;
+                        break;
+                    }
+                }
+
+                if(f) return new Point(x, y);
+
+                x += d;
+                y += d;
+            }
+
+            //Quarto quadrante
+            x = 0;
+            y = r;
+
+            while(x <= r && y >= 0){
+
+                p = new Point(x, y)
+                f = true;
+
+                for(var i in points){
+                    if(me.isInArea(points[i], p, d)){
+                        f = false;
+                        break;
+                    }
+                }
+
+                if(f) return new Point(x, y);
+
+                x += d;
+                y -= d;
+            }
+
+
+            r += r/2;
+        }
+
+        return new Point(0, 0);
+    },
+
     enableDraggable: function(e){
         var me = this;
         e.drag(
