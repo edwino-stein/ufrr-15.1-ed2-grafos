@@ -31,18 +31,20 @@ App.define('ViewModel.Actions',{
         var raster = this.getRaster();
         raster.removeVertice(raster.getVertice(value));
     },
-    
+
     linkVertices: function(origin, target, weight){
-        
+
         var graph = this.getGraph(),
             raster = this.getRaster();
-        
+
         if(!graph.hasVertice(origin))
             this.createVertice(origin);
-        
+
         if(!graph.hasVertice(target))
             this.createVertice(target);
-        
+
+        weight = typeof(weight) === 'number' ? weight : 1;
+
         if(!graph.linkVertices(origin, target, weight)){
             // TODO: Erro no console e no toast
             console.log('erro');
