@@ -43,6 +43,20 @@ body,
     cursor: move;
 }
 
+#toast{
+    position: absolute;
+    z-index: 1000;
+    bottom: 0px;
+    left: 60px;
+    width: calc(100% - 135px);
+    pointer-events: none;
+    text-align: center;
+}
+
+.show-console #toast{
+    width: calc(70% - 135px);
+}
+
 @media (max-width: 991px) {
     .show-console #canvas{
         height: calc(100% - 200px);
@@ -51,6 +65,11 @@ body,
     .show-console #iu-console{
         height: 200px;
         width: 100%;
+    }
+    
+    .show-console #toast{
+        width: calc(100% - 135px);
+        bottom: 200px;
     }
 }
 
@@ -71,6 +90,18 @@ body,
     width: 200px;
 }
 
+/* *********************** Toast *********************** */
+
+#toast .alert{
+    width: auto;
+    display: inline-block;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.36), inset 0px 1px 1px rgba(216, 216, 216, 0.25);
+    border: none;
+}
+
+#toast .alert .close{
+    pointer-events: initial;
+}
 
 /* *********************** Console *********************** */
 
