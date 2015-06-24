@@ -1,3 +1,5 @@
+/* *********************** Geral *********************** */
+
 html,
 body,
 #canvas > svg {
@@ -15,8 +17,6 @@ body,
 
 #iu-console{
     display: none;
-    box-shadow: -1px 0px 5px rgba(0, 0, 0, 0.59);
-    background-color: #f7f7f7;
     float: left;
     padding: 5px;
 }
@@ -54,6 +54,31 @@ body,
     }
 }
 
+#ui-controllers{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 5px 10px 5px 200px;
+    pointer-events: none;
+}
+
+#ui-nav{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding-left: 10px;
+    pointer-events: none;
+    width: 200px;
+}
+
+
+/* *********************** Console *********************** */
+
+#iu-console{
+    box-shadow: -1px 0px 5px rgba(0, 0, 0, 0.59);
+    background-color: #f7f7f7;
+}
+
 #iu-console .output{
     height: calc(100% - 50px);
     overflow-y: auto;
@@ -75,15 +100,8 @@ body,
     position: relative
 }
 
-#iu-console .input .input-text input,
-#ui-controllers .popover #new-vertice-value{
+#iu-console .input .input-text input{
     padding: 6px 34px 6px 5px;
-    border-radius: 2px;
-}
-
-#iu-console .input .input-text input:focus,
-#ui-controllers .popover #new-vertice-value:focus{
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 2px rgba(102,175,233,.6);
 }
 
 #iu-console .input .input-text button{
@@ -108,33 +126,20 @@ body,
     color: #fff
 }
 
-#iu-console .input .input-file button,
-#ui-controllers .popover #new-vertice-action{
+#iu-console .input .input-file button{
     height: 34px;
     width: 34px;
-    border-radius: 50%;
     border: none;
-    box-shadow: 0px 2px 3px -1px rgba(0, 0, 0, 0.37), inset 0px 1px 1px rgba(255, 255, 255, 0.4);
     padding: 0;
 }
 
-#ui-controllers{
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    padding: 5px 10px 5px 200px;
-    pointer-events: none;
-}
+/* *********************** UI Controllers *********************** */
 
 #ui-controllers > button{
     display:  block;
-    border-radius: 50%;
     width: 56px;
     height: 56px;
     margin: 5px 0;
-    pointer-events: initial;
-    box-shadow: 0px 2px 3px -1px rgba(0, 0, 0, 0.37), inset 0px 1px 1px rgba(255, 255, 255, 0.4);
-    outline: none;
 }
 
 #ui-controllers .popover{
@@ -150,24 +155,18 @@ body,
 
 #ui-controllers .popover #new-vertice-action{
     margin: 5px 0 0 5px;
+    height: 34px;
+    width: 34px;
+    border: none;
+    padding: 0;
 }
 
-#ui-nav{
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    padding-left: 10px;
-    pointer-events: none;
-    width: 200px;
-}
+/* *********************** UI Nav *********************** */
 
 #ui-nav button{
     display: inline-block;
     width: 40px;
     height: 35px;
-    pointer-events: initial;
-    box-shadow: 0px 2px 3px -1px rgba(0, 0, 0, 0.37), inset 0px 1px 1px rgba(255, 255, 255, 0.4);
-    outline: none;
 }
 
 #ui-nav #zoom-in{
@@ -183,50 +182,4 @@ body,
 #ui-nav #position{
     margin-top: 5px;
     font-size: 12px;
-}
-
-#bg-grid > line {
-    stroke: #aaa;
-    /*stroke: #ECECEC;*/
-    stroke-width: 0.5px;
-}
-
-#vertices > .vertice{
-    cursor: -webkit-grab;
-    cursor: -moz-grab;
-}
-
-#vertices > .dragging{
-    cursor: -webkit-grabbing;
-    cursor: -moz-grabbing;
-}
-
-#vertices > .selected > circle{
-    fill: #aaa;
-}
-
-#vertices > .visited > circle{
-    fill: #f50000;
-}
-
-#edges .visited line,
-#edges .visited circle{
-    stroke: #f50000;
-}
-
-#edges .visited text{
-    fill: #f50000;
-}
-
-#vertices > .min-path-vertice > circle{
-    fill: #00f500;
-}
-
-#edges .min-path-vertice line,
-#edges .min-path-vertice circle{
-    stroke: #00f500;
-}
-
-#edges .min-path-vertice text{
-    fill: #00f500;
 }

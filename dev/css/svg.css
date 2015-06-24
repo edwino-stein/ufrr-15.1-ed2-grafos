@@ -1,0 +1,45 @@
+#bg-grid > line {
+    stroke: #aaa;
+    /*stroke: #ECECEC;*/
+    stroke-width: 0.5px;
+}
+
+#vertices > .vertice{
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+}
+
+#vertices > .dragging{
+    cursor: -webkit-grabbing;
+    cursor: -moz-grabbing;
+}
+
+#vertices > .selected > circle{
+    fill: #aaa;
+}
+
+#vertices > .visited > circle{
+    fill: #f50000;
+}
+
+#edges .visited line,
+#edges .visited circle{
+    stroke: #f50000;
+}
+
+#edges .visited text{
+    fill: #f50000;
+}
+
+#vertices > .min-path-vertice > circle{
+    fill: #00f500;
+}
+
+#edges .min-path-vertice line,
+#edges .min-path-vertice circle{
+    stroke: #00f500;
+}
+
+#edges .min-path-vertice text{
+    fill: #00f500;
+}
