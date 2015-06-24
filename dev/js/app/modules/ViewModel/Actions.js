@@ -15,7 +15,14 @@ App.define('ViewModel.Actions',{
     },
 
     createVertice: function(value){
-
+        
+        value = parseFloat(value);
+        if(isNaN(value)){
+            // TODO: Erro no console e no toast
+            console.log('Valor inválido');
+            return false;
+        }
+        
         if(!this.getGraph().createVertice(value)){
             // TODO: Erro no console e no toast
             console.log('O vertice já existe');

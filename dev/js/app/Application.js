@@ -10,6 +10,7 @@
         'View.Navigation',
         'View.Canvas',
         'ViewModel.Actions',
+        'ViewModel.UiControl',
         'Model.Graph'
     ],
 

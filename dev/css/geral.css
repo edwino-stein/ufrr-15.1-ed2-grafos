@@ -75,9 +75,15 @@ body,
     position: relative
 }
 
-#iu-console .input .input-text input{
+#iu-console .input .input-text input,
+#ui-controllers .popover #new-vertice-value{
     padding: 6px 34px 6px 5px;
     border-radius: 2px;
+}
+
+#iu-console .input .input-text input:focus,
+#ui-controllers .popover #new-vertice-value:focus{
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 2px rgba(102,175,233,.6);
 }
 
 #iu-console .input .input-text button{
@@ -102,7 +108,8 @@ body,
     color: #fff
 }
 
-#iu-console .input .input-file button{
+#iu-console .input .input-file button,
+#ui-controllers .popover #new-vertice-action{
     height: 34px;
     width: 34px;
     border-radius: 50%;
@@ -115,7 +122,7 @@ body,
     position: absolute;
     bottom: 0;
     right: 0;
-    padding: 5px 10px 5px 100px;
+    padding: 5px 10px 5px 200px;
     pointer-events: none;
 }
 
@@ -127,6 +134,22 @@ body,
     margin: 5px 0;
     pointer-events: initial;
     box-shadow: 0px 2px 3px -1px rgba(0, 0, 0, 0.37), inset 0px 1px 1px rgba(255, 255, 255, 0.4);
+    outline: none;
+}
+
+#ui-controllers .popover{
+    pointer-events: initial;
+}
+
+#ui-controllers .popover #new-vertice-value{
+    width: calc(100% - 40px);
+    float: left;
+    margin: 5px 0;
+    padding: 6px 3px 6px 12px;
+}
+
+#ui-controllers .popover #new-vertice-action{
+    margin: 5px 0 0 5px;
 }
 
 #ui-nav{
@@ -144,6 +167,7 @@ body,
     height: 35px;
     pointer-events: initial;
     box-shadow: 0px 2px 3px -1px rgba(0, 0, 0, 0.37), inset 0px 1px 1px rgba(255, 255, 255, 0.4);
+    outline: none;
 }
 
 #ui-nav #zoom-in{

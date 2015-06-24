@@ -38,18 +38,6 @@
                 App.get('ViewModel.Actions').linkVertices(7, 1);
                 App.get('ViewModel.Actions').linkVertices(123, 9);
 
-                $('#toggle-console').click(function (){
-                   $('body').toggleClass('show-console');
-                });
-                
-                $(function () {
-                    $('[data-toggle="tooltip"]').tooltip()
-                });
-                
-                $('#canvas svg').on('positionChange',function(e, x, y){
-                    $('#position .x').html(x.toFixed(6));
-                    $('#position .y').html(y.toFixed(6));
-                });
             });
         </script>
     </head>
@@ -85,7 +73,7 @@
                 </div>
             </div>
             <div id="ui-controllers">
-                <button class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Novo Vértice" >
+                <button id="new-vertice" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Novo Vértice" >
                     <i class="glyphicon glyphicon-asterisk"></i>
                 </button>
                 <button class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Remover Vértice" >
