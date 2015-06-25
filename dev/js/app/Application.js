@@ -11,6 +11,7 @@
         'View.Canvas',
         'ViewModel.Actions',
         'ViewModel.UiControl',
+        'ViewModel.AlertBroadcast',
         'Model.Graph'
     ],
 
