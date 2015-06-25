@@ -16,51 +16,128 @@ App.define('ViewModel.Actions',{
 
     createVertice: function(value){
         
+        this.clearAnimationsTimeOut();
+        this.animationsTimeOut = [];
+        this.clearClasses();
+        
         value = parseFloat(value);
         if(isNaN(value)){
-            // TODO: Erro no console e no toast
-            console.log('Valor inválido');
+            
+            $('#canvas').trigger('alert-error', [{
+                toast: 'Valor informado é inválido!',
+                console: {
+                    title: 'Valor informado é inválido!',
+                    body: '<p>Utilize apenas <b>números</b></p>Exemplo: 123, 123.456, etc.'
+                }
+            }]);
+        
             return false;
         }
         
         if(!this.getGraph().createVertice(value)){
-            // TODO: Erro no console e no toast
-            console.log('O vertice já existe');
+            
+            $('#canvas').trigger('alert-warning', [{
+                toast: 'O vértice já existe no grafo!',
+                console: {
+                    title: 'O vértice já existe no grafo!',
+                    body: 'Já existe um vértice com o valor <b>'+value+'</b> no grafo.'
+                }
+            }]);
+        
             return false;
         }
 
         var point = App.get('View.Canvas').getFreePoint();
         this.getRaster().createVertice(value, point.x, point.y);
+        
+        $('#canvas').trigger('alert-success', [{
+            toast: 'O vértice foi criado!',
+            console: {
+                title: 'O vértice foi criado!',
+                body: 'O vértice com o valor <b>'+value+'</b> foi adicionado ao grafo.'
+            }
+        }]);
+    
+        return true;
     },
 
     removeVertice: function(value){
-
+        
+        this.clearAnimationsTimeOut();
+        this.animationsTimeOut = [];
+        this.clearClasses();
+        
         if(!this.getGraph().removeVertice(value)){
-            // TODO: Erro no console e no toast
-            console.log('O vertice não existe');
+            
+            $('#canvas').trigger('alert-warning', [{
+                toast: 'O vértice não existe no grafo!',
+                console: {
+                    title: 'O vértice não existe no grafo!',
+                    body: 'O vértice com o valor <b>'+value+'</b> não está presente no grafo.'
+                }
+            }]);
+        
             return false;
         }
         
         var raster = this.getRaster();
         raster.removeVertice(raster.getVertice(value));
+        
+        $('#canvas').trigger('alert-success', [{
+            toast: 'O vértice foi removido!',
+            console: {
+                title: 'O vértice foi removido!',
+                body: 'O vértice com o valor <b>'+value+'</b> foi removido do grafo.'
+            }
+        }]);
+        
+        return true;
     },
 
     linkVertices: function(origin, target, weight){
-
+        
+        this.clearAnimationsTimeOut();
+        this.animationsTimeOut = [];
+        this.clearClasses();
+        
         var graph = this.getGraph(),
             raster = this.getRaster();
 
-        if(!graph.hasVertice(origin))
+        if(!graph.hasVertice(origin)){
+            
+            $('#canvas').trigger('alert-info', [{
+                console: {
+                    title: 'Criando vértice <b>'+origin+'...</b>'
+                }
+            }]);
+            
             this.createVertice(origin);
+        }
 
-        if(!graph.hasVertice(target))
+        if(!graph.hasVertice(target)){
+            
+            $('#canvas').trigger('alert-info', [{
+                console: {
+                    title: 'Criando vértice <b>'+target+'</b>'
+                }
+            }]);
+        
             this.createVertice(target);
+        }
 
         weight = typeof(weight) === 'number' ? weight : 1;
 
         if(!graph.linkVertices(origin, target, weight)){
-            // TODO: Erro no console e no toast
-            console.log('erro');
+            
+            $('#canvas').trigger('alert-error', [{
+                toast: 'Não foi possível ligar os vértices!',
+                console: {
+                    title: 'Não foi possível ligar os vértices!',
+                    body: '<p>Houve um erro duarante a ligação dos vértices <b>'+origin+'</b> e <b>'+target+'</b> com custo <b>'+weight+'</b>.</p>\n\
+                            Verifique os tipos de dados informados.'
+                }
+            }]);
+        
             return false;
         }
         
@@ -77,30 +154,78 @@ App.define('ViewModel.Actions',{
             target,
             weight
         );
+
+        $('#canvas').trigger('alert-success', [{
+            toast: 'Ligação entre vértices criada!',
+            console: {
+                title: 'Ligação entre vértices criada!',
+                body: 'A ligação entre os vértices <b>'+origin.attr('data-value')+'</b> e <b>'+target.attr('data-value')+'</b> foi estabelecida com custo <b>'+weight+'</b>.'
+            }
+        }]);
+    
+        return true;
     },
     
     unlinkVertices:function(origin, target){
+        
+        this.clearAnimationsTimeOut();
+        this.animationsTimeOut = [];
+        this.clearClasses();
         
         var graph = this.getGraph(),
             raster = this.getRaster();
         
         if(!graph.hasVertice(origin)){
-            // TODO: Erro no console e no toast
-            console.log('Error');
-            return;
+            
+            $('#canvas').trigger('alert-error', [{
+                toast: 'Não foi possível desligar os vértices!',
+                console: {
+                    title: 'Não foi possível desligar os vértices!',
+                    body: 'O vértice <b>'+origin+'</b> não existe no grafo.'
+                }
+            }]);
+        
+            return false;
         }
         
         if(!graph.hasVertice(target)){
-            // TODO: Erro no console e no toast
-            console.log('Error');
-            return;
+            
+            $('#canvas').trigger('alert-error', [{
+                toast: 'Não foi possível desligar os vértices!',
+                console: {
+                    title: 'Não foi possível desligar os vértices!',
+                    body: 'O vértice <b>'+target+'</b> não existe no grafo.'
+                }
+            }]);
+        
+            return false;
         }
         
-        graph.unlinkVerties(origin, target);
+        if(!graph.unlinkVerties(origin, target)){
+            
+            $('#canvas').trigger('alert-info', [{
+                console: {
+                    title: 'Não existia ligação entre <b>'+origin+'</b> e <b>'+target+'</b>.'
+                }
+            }]);
+        
+            return false;
+        }
+        
         raster.removeEdge(
             raster.getVertice(origin),
             raster.getVertice(target)
         );
+
+        $('#canvas').trigger('alert-success', [{
+            toast: 'Ligação entre vértices removida!',
+            console: {
+                title: 'Ligação entre vértices removida!',
+                body: 'A ligação entre os vértices <b>'+origin+'</b> e <b>'+target+'</b> foi desfeita.'
+            }
+        }]);
+    
+        return true;
     },
 
     search: function(){
@@ -131,9 +256,15 @@ App.define('ViewModel.Actions',{
             );
             count++;
         });
-
-        // TODO: Erro no console apenas
-        console.log('Encontrado:', founded);
+        
+        $('#canvas').trigger('alert-info', [{
+            console: {
+                title: 'Os vértices encontrados:',
+                body: 'Na ordem:'+founded.toString()+'.'
+            }
+        }]);
+    
+        return founded;
     },
     
     minPath: function(origin, target){
@@ -146,9 +277,16 @@ App.define('ViewModel.Actions',{
         result = graph.minPath(origin, target);
         
         if(result === null){
-            // TODO: Erro no console e toast
-            console.log("Não existe caminho");
-            return;
+            
+            $('#canvas').trigger('alert-warning', [{
+                toast: 'Não existe caminho entre os vértices!',
+                console: {
+                    title: 'Não existe caminho entre os vértices!',
+                    body: 'Não existe um caminho que partindo de <b>'+origin+'</b> chegue em  <b>'+target+'</b>.'
+                }
+            }]);
+        
+            return null;
         }
         
         me.clearAnimationsTimeOut();
@@ -184,8 +322,16 @@ App.define('ViewModel.Actions',{
             );
         }
         
-        // TODO: Erro no console apenas
-        console.log(result);
+        //TODO: colocar os pessoas de cada aresta
+        console.log('<p>'+vertices.toString()+'.</p>Custo total: <b>'+result.weight+'</b>.');
+        $('#canvas').trigger('alert-info', [{
+            console: {
+                title: 'O menor caminho encontrado:',
+                body: '<p>'+vertices.toString()+'.</p>Custo total: <b>'+result.weight+'</b>.'
+            }
+        }]);
+    
+        return result;
     },
     
     clearAnimationsTimeOut: function(){
