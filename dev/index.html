@@ -18,7 +18,10 @@
 
         <script>
             jQuery(document).on('AppReady', function(){
-
+                
+                App.get('ViewModel.AlertBroadcast').disableToast();
+                App.get('ViewModel.AlertBroadcast').disableConsole();
+                
 //                for(var i = 0; i <= 10; i++){
 //                    App.get('ViewModel.Actions').createVertice(i);
 //                }
@@ -39,7 +42,10 @@
                 App.get('ViewModel.Actions').linkVertices(5, 7, 2);
                 App.get('ViewModel.Actions').linkVertices(7, 1);
                 App.get('ViewModel.Actions').linkVertices(123, 9);
-
+                
+                App.get('ViewModel.AlertBroadcast').enableToast();
+                App.get('ViewModel.AlertBroadcast').enableConsole();
+                
             });
         </script>
     </head>

@@ -1,7 +1,46 @@
 App.define('ViewModel.AlertBroadcast',{
     
+    toast: true,
+    console: true,
+    
     showToast: function(text, type){
         App.get('Util').toast.show(text, type);
+    },
+    
+    logConsole: function(title, text, type){
+        App.get('ViewModel.Console').output(title, text, type);
+    },
+    
+    broadcast: function(alert, type){
+        
+        if(alert['toast'] && this.toast){
+            this.showToast(alert.toast, type);
+        }
+            
+        if(alert['console'] && this.console){
+
+            this.logConsole(
+                alert.console.title ? alert.console.title : '',
+                alert.console.body ? alert.console.body : '',
+                type
+            );
+        }
+    },
+    
+    enableToast: function(){
+        this.toast = true;
+    },
+    
+    disableToast: function(){
+        this.toast = false;
+    },
+    
+    enableConsole: function(){
+        this.console = true;
+    },
+    
+    disableConsole: function(){
+        this.console = false;
     },
     
     init: function(){
@@ -9,20 +48,16 @@ App.define('ViewModel.AlertBroadcast',{
         
         $('#canvas')
         .on('alert-error', function(e, alert){
-            if(alert['toast'])
-                me.showToast(alert.toast, 'danger');
+            me.broadcast(alert, 'danger');
         })
         .on('alert-warning', function(e, alert){
-            if(alert['toast'])
-                me.showToast(alert.toast, 'warning');
+            me.broadcast(alert, 'warning');
         })
         .on('alert-success', function(e, alert){
-            if(alert['toast'])
-                me.showToast(alert.toast, 'success');
+            me.broadcast(alert, 'success');
         })
         .on('alert-info', function(e, alert){
-            if(alert['toast'])
-                me.showToast(alert.toast, 'info');
+            me.broadcast(alert, 'info');
         });
     }
 });

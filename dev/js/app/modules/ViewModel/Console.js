@@ -24,7 +24,7 @@ App.define('ViewModel.Console',{
         return this.tpl.replace('{type}', type)
                        .replace('{icon}', icon)
                        .replace('{title}', title)
-                       .replace('{text}', text);
+                       .replace('{text}', text === '' ? text : '<div class="alert-body">'+text+'</div>');
                        
     },
     
