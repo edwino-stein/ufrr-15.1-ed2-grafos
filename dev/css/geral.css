@@ -120,6 +120,49 @@ body,
     border: 1px solid #ccc;
 }
 
+#iu-console .output .alert{
+    margin: 0 0 1px;
+    padding: 10px;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid #DADADA;
+    background-color: #fafafa;
+    font-size: 12px;
+}
+
+#iu-console .output .alert:last-child{
+    margin: 0;
+}
+
+#iu-console .output .alert .alert-title{
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+#iu-console .output .alert .alert-title .glyphicon{
+    margin-right: 2px;
+}
+
+#iu-console .output .alert-warning{
+    border-bottom-color: #DFCEAB;
+    background-color: #fcf8e3;
+}
+
+#iu-console .output .alert-success{
+    border-bottom-color: #A3BE8C;
+    background-color: #dff0d8;
+}
+
+#iu-console .output .alert-danger{
+    border-bottom-color: #E0ADB6;
+    background-color: #f2dede;
+}
+
+#iu-console .output .alert-info{
+    border-bottom-color: #B1D2E2;
+    background-color: #d9edf7;
+}
+
 #iu-console .input{
     height: 45px;
     padding: 10px 0px 0px;

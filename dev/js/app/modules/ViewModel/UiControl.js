@@ -1,7 +1,7 @@
 App.define('ViewModel.UiControl',{
   
     resetNewVerticeBtnStates: function(){
-        $('#ui-controllers > button').removeClass('active')
+        $('#ui-controllers > #new-vertice').removeClass('active')
                                      .tooltip('enable')
                                      .popover('hide');
     },
@@ -39,7 +39,6 @@ App.define('ViewModel.UiControl',{
         });
         
         $('#toggle-console').click(function (){
-            $('body').toggleClass('show-console');
             me.resetNewVerticeBtnStates();
         });
         

@@ -9,6 +9,7 @@
         'View.SvgRaster',
         'View.Navigation',
         'View.Canvas',
+        'ViewModel.Console',
         'ViewModel.Actions',
         'ViewModel.UiControl',
         'ViewModel.AlertBroadcast',
