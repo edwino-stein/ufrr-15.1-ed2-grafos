@@ -13,7 +13,33 @@ App.define('ViewModel.Actions',{
     getTransitionTime: function(){
         return 500;
     },
-
+    
+    clearGraph: function(){
+        
+        var graph = this.getGraph(),
+            vertices = [];
+        
+        for(var i in graph.graph.vertices)
+            vertices.push(i);
+        
+        if(vertices.length <= 0) return;
+        
+        App.get('ViewModel.AlertBroadcast').disableToast();
+        App.get('ViewModel.AlertBroadcast').disableConsole();
+                
+        while(vertices.length > 0)
+            this.removeVertice(parseFloat(vertices.pop()));
+       
+        App.get('ViewModel.AlertBroadcast').enableToast();
+        App.get('ViewModel.AlertBroadcast').enableConsole();
+        
+        $('#canvas').trigger('alert-info', [{
+            console: {
+                title: 'O Grafo foi limpo!'
+            }
+        }]);
+    },
+    
     createVertice: function(value){
         
         this.clearAnimationsTimeOut();
@@ -118,7 +144,7 @@ App.define('ViewModel.Actions',{
             
             $('#canvas').trigger('alert-info', [{
                 console: {
-                    title: 'Criando vértice <b>'+target+'</b>'
+                    title: 'Criando vértice <b>'+target+'</b>...'
                 }
             }]);
         
@@ -257,10 +283,10 @@ App.define('ViewModel.Actions',{
             count++;
         });
         
-        $('#canvas').trigger('alert-info', [{
+        $('#canvas').trigger('alert-success', [{
             console: {
                 title: 'Os vértices encontrados:',
-                body: 'Na ordem:'+founded.toString()+'.'
+                body: 'Na ordem: '+founded.toString()+'.'
             }
         }]);
     
