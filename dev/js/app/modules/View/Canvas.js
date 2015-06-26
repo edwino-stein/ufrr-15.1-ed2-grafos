@@ -314,6 +314,7 @@ App.define('View.Canvas', {
         if(this.selected === null) return;
         $('#canvas').trigger('deselect', [this.selected]);
         this.selected.removeClass('selected');
+        this.selected = null;
     },
 
     init: function(){
