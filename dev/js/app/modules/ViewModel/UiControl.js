@@ -7,9 +7,9 @@ App.define('ViewModel.UiControl',{
     },
     
     newVerticePopoverTpl: function(){
-        return '<div>Valor Vértice:<div>\n\
+        return '<div>Valor Vértice:<div><form>\n\
                 <input id="new-vertice-value" class="form-control" type="number" value="0" max="999999999999" min="-99999999999" />\n\
-                <button class="btn btn-primary" id="new-vertice-action" onclick="App.get(\'ViewModel.UiControl\').newVerticeAction();" ><i class="glyphicon glyphicon-ok"></i></button>';
+                <button type="submit" class="btn btn-primary" id="new-vertice-action"><i class="glyphicon glyphicon-ok"></i></button></form>';
     },
     
     newVerticeAction: function(){
@@ -26,8 +26,20 @@ App.define('ViewModel.UiControl',{
             btn.button('toggle');
             
             if(btn.hasClass('active')){
+                
                 btn.popover()
                    .tooltip('disable');
+                
+                btn.on('shown.bs.popover', function(){
+                   var popoverId = btn.attr('aria-describedby');
+                   $('#new-vertice-value').focus();
+                   $('#'+popoverId+' form').submit(function(e){
+                       e.preventDefault();
+                       e.stopPropagation();
+                       e.stopImmediatePropagation();
+                       me.newVerticeAction();
+                   });
+                });
             }
             else{
                 btn.tooltip('enable');
