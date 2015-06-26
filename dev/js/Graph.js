@@ -273,7 +273,12 @@ function Graph(){
                     min = temp;
                     return;
                 }
-
+                
+                if(temp.weight === min.weight){
+                    min = temp.vertices.length < min.vertices.length ? temp : min;
+                    return;
+                }
+                
                 if(temp.weight < min.weight){
                   min.free();
                   min = temp;
