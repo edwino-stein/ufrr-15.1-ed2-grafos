@@ -190,6 +190,7 @@ body,
     background: inherit;
     padding: 0 10px;
     color: #777;
+    outline: none;
 }
 
 #iu-console .input .input-text button:hover{

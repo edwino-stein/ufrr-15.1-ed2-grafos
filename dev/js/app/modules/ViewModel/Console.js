@@ -24,13 +24,13 @@ App.define('ViewModel.Console',{
         var icon;
         
         switch(type){
-            case 'success': icon = 'glyphicon glyphicon-ok-sign'; break;
-            case 'warning': icon = 'glyphicon glyphicon-exclamation-sign'; break;
-            case 'danger': icon = 'glyphicon glyphicon-remove-sign'; break;
-            case 'info': icon = 'glyphicon glyphicon-info-sign'; break;
+            case 'success': icon = 'fa fa-lg fa-check-circle'; break;
+            case 'warning': icon = 'fa fa-lg fa-exclamation-triangle'; break;
+            case 'danger': icon = 'fa fa-lg fa-times-circle'; break;
+            case 'info': icon = 'fa fa-lg fa-info-circle'; break;
             case 'log':
             default:
-                icon = 'glyphicon glyphicon-log-in';
+                icon = 'fa fa-lg fa-sign-in';
         }
         
         return this.tpl.replace('{type}', type)
