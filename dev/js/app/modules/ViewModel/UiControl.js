@@ -11,6 +11,7 @@ App.define('ViewModel.UiControl',{
     waitingForDelete: false,
     waitingForLink: false,
     waitingForUnlink: false,
+    waitingForMinPath: false,
 
     origin: null,
 
@@ -37,6 +38,12 @@ App.define('ViewModel.UiControl',{
         this.waitingForUnlink = false;
         this.origin = null;
         $('#ui-controllers > #unlink-action').removeClass('active');
+    },
+
+    resetMinPathStates: function(){
+        this.waitingForMinPath = false;
+        this.origin = null;
+        $('#ui-controllers > #minpath-action').removeClass('active');
     },
 
     newVerticePopoverTpl: function(){
@@ -72,6 +79,16 @@ App.define('ViewModel.UiControl',{
         this.resetLinkStates();
     },
 
+    minPathAction: function(origin, target){
+        this.getCanvas().deselect();
+
+        this.getActions().minPath(
+                parseFloat(origin),
+                parseFloat(target)
+        );
+        this.resetMinPathStates();
+    },
+
     unlinkAction: function(origin, target){
         this.getCanvas().deselect();
 
@@ -97,6 +114,7 @@ App.define('ViewModel.UiControl',{
             me.resetDeleteStates();
             me.resetLinkStates();
             me.resetUnlinkStates();
+            me.resetMinPathStates();
 
             if(btn.hasClass('active')){
 
@@ -132,6 +150,7 @@ App.define('ViewModel.UiControl',{
             me.resetLinkStates();
             me.resetUnlinkStates();
             me.searchAction();
+            me.resetMinPathStates();
         });
 
         $('#delete-action').click(function(){
@@ -139,6 +158,7 @@ App.define('ViewModel.UiControl',{
             me.resetNewVerticeBtnStates();
             me.resetLinkStates();
             me.resetUnlinkStates();
+            me.resetMinPathStates();
 
             var btn = $(this);
             btn.button('toggle');
@@ -167,6 +187,7 @@ App.define('ViewModel.UiControl',{
             me.resetNewVerticeBtnStates();
             me.resetDeleteStates();
             me.resetUnlinkStates();
+            me.resetMinPathStates();
 
             if(me.waitingForLink){
                 me.resetLinkStates();
@@ -207,6 +228,7 @@ App.define('ViewModel.UiControl',{
             me.resetNewVerticeBtnStates();
             me.resetDeleteStates();
             me.resetLinkStates();
+            me.resetMinPathStates();
 
             if(me.waitingForUnlink){
                 me.resetUnlinkStates();
@@ -215,6 +237,34 @@ App.define('ViewModel.UiControl',{
 
             me.waitingForUnlink = !me.waitingForUnlink;
 
+            if(me.getCanvas().selected !== null){
+                me.origin = me.getCanvas().selected;
+                $('#canvas').trigger('alert-info', [{
+                    toast: 'Selecione um vértice para ser o destino.'
+                }]);
+            }
+            else{
+                $('#canvas').trigger('alert-info', [{
+                    toast: 'Selecione um vértice para ser a origem.'
+                }]);
+            }
+        });
+
+        $('#minpath-action').click(function(){
+            var btn = $(this);
+            btn.button('toggle');
+
+            me.resetNewVerticeBtnStates();
+            me.resetDeleteStates();
+            me.resetLinkStates();
+            me.resetUnlinkStates();
+
+            if(me.waitingForMinPath){
+                me.resetMinPathStates();
+                return;
+            }
+
+            me.waitingForMinPath = !me.waitingForMinPath;
             if(me.getCanvas().selected !== null){
                 me.origin = me.getCanvas().selected;
                 $('#canvas').trigger('alert-info', [{
@@ -266,6 +316,22 @@ App.define('ViewModel.UiControl',{
                 );
             }
 
+            if(me.waitingForMinPath){
+
+                if(me.origin === null){
+                    me.origin = vertice;
+                    $('#canvas').trigger('alert-info', [{
+                        toast: 'Selecione um vértice para ser o destino.'
+                    }]);
+                    return;
+                }
+
+                me.minPathAction(
+                    me.origin.attr('data-value'),
+                    vertice.attr('data-value')
+                );
+            }
+
         });
 
         $('#canvas').dblclick(function(e){
@@ -276,6 +342,7 @@ App.define('ViewModel.UiControl',{
                 me.resetDeleteStates();
                 me.resetLinkStates();
                 me.resetUnlinkStates();
+                me.resetMinPathStates();
             }
         });
 
