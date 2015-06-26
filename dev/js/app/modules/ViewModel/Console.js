@@ -103,8 +103,46 @@ App.define('ViewModel.Console',{
         return null;
     },
     
+    showHelp: function(){
+        var tpl =   'Comandos para o grafo:<ul>\n\
+                        <li><i>t 3 &lt;total&gt;</i> - Inicializa o grafo com <b>&lt;total&gt;</b> vértices.</li>\n\
+                        <li><i>i &lt;origem&gt; &lt;destino&gt; &lt;custo&gt;</i> - Liga os vértices <b>&lt;origem&gt;</b> e <b>&lt;destino&gt;</b> com um custo <b>&lt;custo&gt;</b>.</li>\n\
+                        <li><i>b</i> - Percorre todos os vértices do grafo.</li>\n\
+                        <li><i>c &lt;origem&gt; &lt;destino&gt;</i> - Busca um caminho que partido de <b>&lt;origem&gt;</b> chegue em <b>&lt;destino&gt;</b> com o menor custo.</li>\n\
+                    </ul>Outros:<ul>\n\
+                        <li><i>ajuda</i> - Exibe esse menu.</li>\n\
+                        <li><i>limpar</i> - Limpa o console.</li>\n\
+                        <li><i>origem</i> - Posiciona a tela na origem do plano.</li>\n\
+                    </ul>';
+        
+        this.output(
+            'Menu de ajuda',
+            tpl,
+            'info'
+        );
+    },
+    
     input: function(text){
         this.output(''+text+'', '', 'log');
+        
+        switch(text.toLowerCase()){
+            
+            case 'ajuda':
+                this.showHelp();
+                return;
+            break;
+            
+            case 'limpar':
+                this.clear();
+                return;
+            break;
+            
+            case 'origem':
+                App.get('View.Navigation').toOrigin();
+                return;
+            break;
+        }
+        
         var cmd = this.identifyCommand(text);
         
         if(cmd === null){
