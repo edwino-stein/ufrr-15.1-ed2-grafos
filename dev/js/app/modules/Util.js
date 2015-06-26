@@ -20,8 +20,7 @@ App.define('Util', {
         },
         
         close: function(){
-            $('#toast').fadeOut();
-            $('#toast .alert').alert('close');
+            $('#toast .alert').remove();
             clearTimeout(this.timeout);
             this.timeout = null;
         },
@@ -43,7 +42,6 @@ App.define('Util', {
             
             me.close();
             $('#toast').append(me.getTpl(type, text));
-            $('#toast').fadeIn();
             
             $('#toast .alert').on('closed.bs.alert', function(){
                 clearTimeout(this.timeout);
@@ -58,11 +56,6 @@ App.define('Util', {
             
             return true;
         }
-    },
-    
-    init: function(){
-        $('#toast').fadeOut();
-    }
-    
+    },    
 });
 
