@@ -221,6 +221,11 @@ body,
 }
 
 #ui-controllers .popover{
+    pointer-events: node;
+}
+
+#ui-controllers .popover input,
+#ui-controllers .popover button{
     pointer-events: initial;
 }
 
