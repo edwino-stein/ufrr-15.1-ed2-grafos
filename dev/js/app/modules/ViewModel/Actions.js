@@ -287,7 +287,7 @@ App.define('ViewModel.Actions',{
         $('#canvas').trigger('alert-success', [{
             console: {
                 title: 'Os vértices encontrados:',
-                body: 'Na ordem: '+founded.toString()+'.'
+                body: 'Encontrados na ordem: '+founded.join(', ')+'.'
             }
         }]);
     
@@ -343,6 +343,7 @@ App.define('ViewModel.Actions',{
         };
         
         vertices = result.vertices;
+        var path = vertices[0].toString()+' -(';
         for(var i in vertices){
             handle(
                 raster.getVertice(vertices[i]),
@@ -351,12 +352,10 @@ App.define('ViewModel.Actions',{
             );
         }
         
-        //TODO: colocar os pessoas de cada aresta
-        console.log('<p>'+vertices.toString()+'.</p>Custo total: <b>'+result.weight+'</b>.');
         $('#canvas').trigger('alert-info', [{
             console: {
                 title: 'O menor caminho encontrado:',
-                body: '<p>'+vertices.toString()+'.</p>Custo total: <b>'+result.weight+'</b>.'
+                body: '<p>'+vertices.join(' <i class="fa fa-arrow-right"></i> ')+'.</p>Custo total: <b>'+result.weight+'</b>.'
             }
         }]);
     
