@@ -16,41 +16,8 @@
         <script type="text/javascript" src="js/Graph.js"></script>
         <script type="text/javascript" src="js/Vector.js"></script>
         <script type="text/javascript" src="js/app/Application.js"></script>
-
-        <script>
-            jQuery(document).on('AppReady', function(){
-                
-                App.get('ViewModel.AlertBroadcast').disableToast();
-                App.get('ViewModel.AlertBroadcast').disableConsole();
-                
-//                for(var i = 0; i <= 10; i++){
-//                    App.get('ViewModel.Actions').createVertice(i);
-//                }
-
-                App.get('ViewModel.Actions').createVertice(1);
-                App.get('ViewModel.Actions').createVertice(123);
-                App.get('ViewModel.Actions').createVertice(5);
-                App.get('ViewModel.Actions').createVertice(7);
-                App.get('ViewModel.Actions').createVertice(9);
-
-
-                App.get('ViewModel.Actions').linkVertices(123, 1, 1);
-                App.get('ViewModel.Actions').linkVertices(1, 1, 123);
-                App.get('ViewModel.Actions').linkVertices(1, 123, 3);
-                App.get('ViewModel.Actions').linkVertices(1, 5, 2);
-                App.get('ViewModel.Actions').linkVertices(5, 123, 10);
-                App.get('ViewModel.Actions').linkVertices(5, 5, 1);
-                App.get('ViewModel.Actions').linkVertices(5, 7, 2);
-                App.get('ViewModel.Actions').linkVertices(7, 1);
-                App.get('ViewModel.Actions').linkVertices(123, 9);
-                
-                App.get('ViewModel.AlertBroadcast').enableToast();
-                App.get('ViewModel.AlertBroadcast').enableConsole();
-                
-            });
-        </script>
     </head>
-    <body class="show-console">
+    <body>
         <div id="toast"></div>
         <div id="canvas">
             <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" version="1.1">
