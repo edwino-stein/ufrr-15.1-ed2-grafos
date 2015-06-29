@@ -1,6 +1,6 @@
 App.define('ViewModel.Console',{
     
-    basicFormat: '([a-zA-Z])+((\\s)?(\\+|-)?(\\d)+)+',
+    basicFormat: '([a-zA-Z])+((\\s)?(\\+|-)?(\\d)?)+',
     availableCmds: '(t|i|c|b|T|I|C|B)',
     intFormat: '(\\+|-)?(\\d)+',
     typeFormat: '(t|T)(\\s)?(0|1|2|3)((\\s)([1-9]\\d*)+)?',
@@ -172,15 +172,18 @@ App.define('ViewModel.Console',{
                 
                 this.getActions().clearGraph();
                 
-                App.get('ViewModel.AlertBroadcast').disableToast();
-                App.get('ViewModel.AlertBroadcast').disableConsole();
-        
-                
+                var alertBroadcast = App.get('ViewModel.AlertBroadcast'),
+                    toast = alertBroadcast.toast,
+                    console = alertBroadcast.console;
+            
+                alertBroadcast.toast = false,
+                alertBroadcast.console = false;
+
                 for(var i = 1; i <= command.extraParam; i++)
                     this.getActions().createVertice(i);
                 
-                App.get('ViewModel.AlertBroadcast').enableToast();
-                App.get('ViewModel.AlertBroadcast').enableConsole();
+                alertBroadcast.toast = toast,
+                alertBroadcast.console = console;
                 
                 this.output(
                     'Grafo inicializado',
@@ -211,6 +214,93 @@ App.define('ViewModel.Console',{
        
         return false;
     },
+   
+    parserFile: function(content){
+        
+        var commandsQueue = [],
+            line, basicFormat, matched, cmd, counter = 0;
+        
+        for(var i in content){
+            
+            counter++;
+            line = content[i];
+            basicFormat = new RegExp(this.basicFormat, 'g');
+            matched = null;
+            cmd = null;
+            
+            if(line === ''){
+                this.output(
+                    'Linha vazia',
+                    'A linha <b>'+counter+'</b> está vazia.',
+                    'warning'
+                );
+                continue;
+            }
+            
+            while(matched = basicFormat.exec(line)){
+                
+                cmd = this.identifyCommand(matched[0]);
+                
+                if(cmd === null){
+                    this.output(
+                        'Comando Inválido!',
+                        'Não foi possível identificar o trecho "<b>'+matched[0]+'</b>" na linha <b>'+counter+'</b>.',
+                        'danger'
+                    );
+                    return;
+                }
+                
+                commandsQueue.push(cmd);
+            }
+        }
+        
+        this.output(
+            'Arquivo carregado',
+            '<p>Foram encontradas <b>'+commandsQueue.length+'</b> instruções no arquivo.</p>Executando comandos...',
+            'info'
+        );
+        
+        for(var i in commandsQueue){
+            this.output(''+commandsQueue[i].orginal+'', '', 'log');
+            this.execCommand(commandsQueue[i]);
+        }
+        
+    },
+   
+    loadFile: function(file){
+        var me = this,
+            reader = new FileReader();
+        
+        this.output(
+            'Carregando arquivo...',
+            'Nome: '+file.name+';<br/>Tamanho: '+file.size+' Bytes.',
+            'info'
+        );
+            
+        reader.onload = function(content){
+            App.get('ViewModel.AlertBroadcast').disableToast();
+            me.disableInput();
+            me.parserFile(content.target.result.split("\n"));
+            App.get('ViewModel.AlertBroadcast').enableToast();
+            me.enableInput();
+        };
+        
+        reader.readAsText(file);
+    },
+    
+    disableInput: function(){
+        $('#iu-console .input .input-file button').prop( "disabled", true);
+        $('#iu-console .input .input-file input').prop( "disabled", true);
+        $('#iu-console .input .input-text input').prop( "disabled", true);
+        $('#iu-console .input .input-text button').prop( "disabled", true);
+    },
+    
+    enableInput: function(){
+        $('#iu-console .input .input-file button').prop( "disabled", false);
+        $('#iu-console .input .input-file input').prop( "disabled", false);
+        $('#iu-console .input .input-text input').prop( "disabled", false);
+        $('#iu-console .input .input-text button').prop( "disabled", false);
+    },
     
     clear: function(){
         $('#iu-console .output').html('');
@@ -228,7 +318,6 @@ App.define('ViewModel.Console',{
             }
         });
         
-        
         $('#iu-console .input .input-text form').submit(function(e){
             
             e.preventDefault();
@@ -240,8 +329,19 @@ App.define('ViewModel.Console',{
                 input.focus();
             }
         });
-        
+                
         $('#iu-console .input .input-text form .form-control').val('');
+        
+        $('#iu-console .input .input-file button').click(function(){
+            $('#iu-console .input .input-file input').click();
+        });
+        
+        $('#iu-console .input .input-file input').change(function(){
+            me.loadFile(this.files[0]);
+            $(this).val('');
+        });
+        
+        me.enableInput();
     }
 });
 

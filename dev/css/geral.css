@@ -223,6 +223,10 @@ body,
     padding: 0;
 }
 
+#iu-console .input .input-file input{
+    display: none;
+}
+
 /* *********************** UI Controllers *********************** */
 
 #ui-controllers > button{
