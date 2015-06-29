@@ -29,7 +29,7 @@ App.define('Model.Graph',{
     minPath: function(origin, target){
         var minPath = this.graph.minPath(origin, target);
         
-        if(!minPath.hasVertice(origin) || !minPath.hasVertice(target))
+        if(!minPath || !minPath.hasVertice(origin) || !minPath.hasVertice(target))
             return null;
         
         return minPath;

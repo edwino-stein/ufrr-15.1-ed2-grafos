@@ -301,6 +301,33 @@ App.define('ViewModel.Actions',{
             raster = me.getRaster(),
             result;
         
+        
+        if(!graph.hasVertice(origin)){
+            
+            $('#canvas').trigger('alert-error', [{
+                toast: 'Não existe caminho entre os vértices!',
+                console: {
+                    title: 'Não existe caminho entre os vértices!',
+                    body: 'O vértice <b>'+origin+'</b> não existe no grafo.'
+                }
+            }]);
+        
+            return false;
+        }
+        
+        if(!graph.hasVertice(target)){
+            
+            $('#canvas').trigger('alert-error', [{
+                toast: 'Não existe caminho entre os vértices!',
+                console: {
+                    title: 'Não existe caminho entre os vértices!',
+                    body: 'O vértice <b>'+target+'</b> não existe no grafo.'
+                }
+            }]);
+        
+            return false;
+        }
+        
         result = graph.minPath(origin, target);
         
         if(result === null){
