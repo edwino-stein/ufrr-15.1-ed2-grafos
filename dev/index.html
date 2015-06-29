@@ -55,15 +55,64 @@
         <div id="canvas">
             <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" version="1.1">
                 <defs>
-                    <marker id="markerCircle" markerWidth="8" markerHeight="8" refX="5" refY="5">
-                        <circle cx="5" cy="5" r="3" style="stroke: none; fill:#000000;"/>
+                
+                    <marker id="edge-origin" markerWidth="8" markerHeight="8" refX="5" refY="5">
+                        <circle cx="5" cy="5" r="3" style="stroke: none;"></circle>
                     </marker>
-                    <marker id="markerArrow" markerWidth="13" markerHeight="13" refX="9" refY="6" orient="auto">
-                        <path d="M2,2 L2,11 L10,6 L2,2" style="fill: #000000;" />
+                
+                    <marker id="edge-target" markerWidth="13" markerHeight="13" refX="9" refY="6" orient="auto">
+                        <path d="M2,2 L2,11 L10,6 L2,2" ></path>
                     </marker>
-                    <marker id="markerArrowSelf" markerWidth="13" markerHeight="13" refX="5.5" refY="3.5" orient="auto">
-                        <path d="M2,2 L2,11 L10,6 L2,2" style="fill: #000000;" transform="rotate(-35)" />
+                
+                    <marker id="edge-target-self" markerWidth="13" markerHeight="13" refX="5.5" refY="3.5" orient="auto">
+                        <path d="M2,2 L2,11 L10,6 L2,2" transform="rotate(-35)"></path>
                     </marker>
+                
+                    <marker id="edge-origin-visited" markerWidth="8" markerHeight="8" refX="5" refY="5">
+                        <circle cx="5" cy="5" r="3" style="stroke: none;"></circle>
+                    </marker>
+                
+                    <marker id="edge-target-visited" markerWidth="13" markerHeight="13" refX="9" refY="6" orient="auto">
+                        <path d="M2,2 L2,11 L10,6 L2,2" ></path>
+                    </marker>
+                
+                    <marker id="edge-target-self-visited" markerWidth="13" markerHeight="13" refX="5.5" refY="3.5" orient="auto">
+                        <path d="M2,2 L2,11 L10,6 L2,2" transform="rotate(-35)"></path>
+                    </marker>
+                
+                    <marker id="edge-origin-min-path" markerWidth="8" markerHeight="8" refX="5" refY="5">
+                        <circle cx="5" cy="5" r="3" style="stroke: none;"></circle>
+                    </marker>
+                
+                    <marker id="edge-target-min-path" markerWidth="13" markerHeight="13" refX="9" refY="6" orient="auto">
+                        <path d="M2,2 L2,11 L10,6 L2,2" ></path>
+                    </marker>
+                
+                    <marker id="edge-target-self-min-path" markerWidth="13" markerHeight="13" refX="5.5" refY="3.5" orient="auto">
+                        <path d="M2,2 L2,11 L10,6 L2,2" transform="rotate(-35)"></path>
+                    </marker>
+                
+                    <filter id="drop-shadow-vertice" x="-0.3" y="-0.3" width="2" height="2">
+                        <feGaussianBlur in="SourceAlpha" stdDeviation="1.5"/>
+                        <feOffset dx="0" dy="1.5" result="offsetblur"/>
+                        <feFlood flood-color="rgba(0,0,0,0.4)"/>
+                        <feComposite in2="offsetblur" operator="in"/>
+                        <feMerge>
+                            <feMergeNode/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                    
+                    <filter id="drop-shadow-vertice-text" x="-0.3" y="-0.3" width="2" height="2">
+                        <feGaussianBlur in="SourceAlpha" stdDeviation="0"/>
+                        <feOffset dx="0.7" dy="1" result="offsetblur"/>
+                        <feFlood flood-color="rgba(0, 0, 0, 0.5)"/>
+                        <feComposite in2="offsetblur" operator="in"/>
+                        <feMerge>
+                            <feMergeNode/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
                 </defs>
             </svg>
             <div id="ui-nav">

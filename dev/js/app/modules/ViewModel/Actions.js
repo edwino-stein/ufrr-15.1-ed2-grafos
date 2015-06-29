@@ -273,6 +273,7 @@ App.define('ViewModel.Actions',{
                     if(origin !== null){
                         var edge = $('#edges > .edge[data-origin='+origin+'][data-target='+vertice+']')[0];
                         edge.classList.add('visited');
+                        $('#canvas').trigger('check-edge', [edge, 'visited']);
                     }
 
                     vertice = raster.getVertice(vertice);
@@ -329,8 +330,10 @@ App.define('ViewModel.Actions',{
                     
                 setTimeout(function(){
 
-                    if(edge !== null)
+                    if(edge !== null){
                         edge.classList.add('min-path-vertice');
+                        $('#canvas').trigger('check-edge', [edge, 'min-path']);
+                    }
     
                     vertice.addClass('min-path-vertice');
                 }, time*count)
@@ -375,6 +378,10 @@ App.define('ViewModel.Actions',{
         $('.visited, .min-path-vertice').each(function(i, vertice){
             vertice.classList.remove('visited');
             vertice.classList.remove('min-path-vertice');
+            
+            if(vertice.classList.contains('edge')){
+                $('#canvas').trigger('uncheck-edge', [vertice]);
+            }
         });
     },
 

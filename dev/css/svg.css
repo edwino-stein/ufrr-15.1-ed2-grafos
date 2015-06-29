@@ -1,10 +1,27 @@
 #bg-grid > line {
-    stroke: #aaa;
-    /*stroke: #ECECEC;*/
-    stroke-width: 0.5px;
+    stroke: #c7c7c7;
+    stroke-width: 0.3px;
 }
 
 #vertices > .vertice{
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+}
+
+#vertices > .vertice > circle{
+    fill: #448AFF;
+    stroke: #448AFF;
+    transition: all 0.5s ease-in-out;
+}
+
+#vertices > .vertice > text{
+    fill: #fff;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     cursor: -webkit-grab;
     cursor: -moz-grab;
 }
@@ -15,31 +32,106 @@
 }
 
 #vertices > .selected > circle{
-    fill: #aaa;
+    transition: fill 0.4s ease-in-out, stroke 0.4s ease-in-out;
+    fill: #82B1FF;
+    stroke: #82B1FF;
 }
 
+#edges .edge line,
+#edges .edge path,
+#edges .edge circle{
+    transition: fill 0.4s ease-in-out, stroke 0.4s ease-in-out;;
+    stroke: #303F9F;
+    fill: #fff;
+}
+
+#edges .edge text{
+    fill: #303F9F;
+    transition: fill 0.4s ease-in-out;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+
+marker#edge-origin circle{
+    transition: fill 0.4s ease-in-out;
+    fill: #303F9F;
+}
+
+marker#edge-target path,
+marker#edge-target-self path{
+    transition: fill 0.4s ease-in-out;
+    fill: #3949AB;
+}
+
+/** Visited **/
+
 #vertices > .visited > circle{
-    fill: #f50000;
+    fill: #FF5252;
+    stroke: #FF5252;
+}
+
+#vertices > .visited.selected > circle{
+    fill: #FF8A80;
+    stroke: #FF8A80;
 }
 
 #edges .visited line,
+#edges .visited path,
 #edges .visited circle{
-    stroke: #f50000;
+    stroke: #D50000;
+    fill: #fff;
 }
 
 #edges .visited text{
-    fill: #f50000;
+    fill: #D50000;
 }
 
+marker#edge-origin-visited circle{
+    transition: fill 0.4s ease-in-out;
+    fill: #D50000;
+}
+
+marker#edge-target-visited path,
+marker#edge-target-self-visited path{
+    transition: fill 0.4s ease-in-out;
+    fill: #D50000;
+}
+
+/** Min-Path **/
+
 #vertices > .min-path-vertice > circle{
-    fill: #00f500;
+    fill: #00E676;
+    stroke: #00E676;
+}
+
+#vertices > .min-path-vertice.selected > circle{
+    fill: #69F0AE;
+    stroke: #69F0AE;
 }
 
 #edges .min-path-vertice line,
+#edges .min-path-vertice path,
 #edges .min-path-vertice circle{
-    stroke: #00f500;
+    stroke: #388E3C;
+    fill: #fff;
 }
 
 #edges .min-path-vertice text{
-    fill: #00f500;
+    fill: #388E3C;
+}
+
+marker#edge-origin-min-path circle{
+    transition: fill 0.4s ease-in-out;
+    fill: #388E3C;
+}
+
+marker#edge-target-min-path path,
+marker#edge-target-self-min-path path{
+    transition: fill 0.4s ease-in-out;
+    fill: #388E3C;
 }

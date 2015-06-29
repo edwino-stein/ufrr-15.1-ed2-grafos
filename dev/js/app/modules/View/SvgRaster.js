@@ -13,26 +13,27 @@ App.define('View.SvgRaster',{
         'font-family': '"Helvetica Neue",Helvetica,Arial,sans-serif',
         'text-anchor': 'middle',
         'dominant-baseline': 'central',
-        'text-align': 'center'
+        'text-align': 'center',
+        filter:'url(#drop-shadow-vertice-text)',
+        'unselectable': 'on'
     },
 
     verticeCircleAttr:{
-        'fill': '#fff',
-        'stroke': '#000',
-        'stroke-width': '1px'
+        'stroke-width': '1px',
+        filter: "url(#drop-shadow-vertice)"
     },
     
     edgeLineAttr: {
         'stroke': '#000',
         'stroke-width': '1px',
-        'style': 'marker-start: url(#markerCircle); marker-end:url(#markerArrow)'
+        'style': 'marker-start: url(#edge-origin); marker-end:url(#edge-target)'
     },
     
     edgeSelfLineAttr: {
         'stroke': '#000',
         'fill': 'transparent',
         'stroke-width': '1px',
-        'style': 'marker-start: url(#markerCircle); marker-end:url(#markerArrowSelf)'
+        'style': 'marker-start: url(#edge-origin); marker-end:url(#edge-target-self)'
     },
     
     edgeTextAttr: {
@@ -40,12 +41,11 @@ App.define('View.SvgRaster',{
         'font-family': '"Helvetica Neue",Helvetica,Arial,sans-serif',
         'text-anchor': 'middle',
         'dominant-baseline': 'central',
-        'text-align': 'center'
+        'text-align': 'center',
+        'unselectable': 'on'
     },
     
     edgeCircleAttr: {
-        'fill': '#fff',
-        'stroke': '#000',
         'stroke-width': '1px'
     },
     
@@ -269,6 +269,40 @@ App.define('View.SvgRaster',{
         this.store['edges'].node.removeChild(edge);
     },
     
+    checkEdge: function(edge, type){
+        
+        var line = edge.querySelectorAll('line, path')[0];
+        
+        if(type === 'visited'){
+            
+            if(line.nodeName === 'line')
+                line.setAttribute('style', 'marker-start: url(#edge-origin-visited); marker-end:url(#edge-target-visited)');
+            
+            else if(line.nodeName === 'path')
+                line.setAttribute('style', 'marker-start: url(#edge-origin-visited); marker-end:url(#edge-target-self-visited)');
+        }
+        else if(type === 'min-path'){
+            
+            if(line.nodeName === 'line')
+                line.setAttribute('style', 'marker-start: url(#edge-origin-min-path); marker-end:url(#edge-target-min-path)');
+            
+            else if(line.nodeName === 'path')
+                line.setAttribute('style', 'marker-start: url(#edge-origin-min-path); marker-end:url(#edge-target-self-min-path)');
+        }
+    },
+    
+    uncheckEdge: function(edge){
+        
+        var line = edge.querySelectorAll('line, path')[0];
+            
+        if(line.nodeName === 'line'){
+            line.setAttribute('style', 'marker-start: url(#edge-origin); marker-end:url(#edge-target)');
+        }
+        else if(line.nodeName === 'path'){
+            line.setAttribute('style', 'marker-start: url(#edge-origin); marker-end:url(#edge-target-self)');
+        }
+    },
+    
     init: function(){
         var me = this;
         me.svgEl = $('#canvas svg')[0];
@@ -279,6 +313,12 @@ App.define('View.SvgRaster',{
         me.store['edges'].attr('id', 'edges');
         me.store['vertices'] = this.snapSvgRoot.g();
         me.store['vertices'].attr('id', 'vertices');
+        
+        $('#canvas').on('check-edge', function(e, edge, type){
+            me.checkEdge(edge, type);
+        }).on('uncheck-edge', function(e, edge){
+           me.uncheckEdge(edge);
+        });
     }
 });
 
