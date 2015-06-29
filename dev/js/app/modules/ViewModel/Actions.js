@@ -343,7 +343,6 @@ App.define('ViewModel.Actions',{
         };
         
         vertices = result.vertices;
-        var path = vertices[0].toString()+' -(';
         for(var i in vertices){
             handle(
                 raster.getVertice(vertices[i]),
