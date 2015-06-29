@@ -161,7 +161,7 @@ function Path(){
 function Graph(){
 
     this.vertices = {};
-    this.lenght = 0;
+    this.length = 0;
 
     this.has = function (value){
         return this.vertices[value] !== undefined && this.vertices[value] !== null;
@@ -180,7 +180,7 @@ function Graph(){
         if(!this.isNumber(value) || this.has(value)) return false;
 
         this.vertices[value] = new Vertice(value);
-        this.lenght++;
+        this.length++;
 
         return true;
     };
@@ -192,7 +192,7 @@ function Graph(){
         this.vertices[value].free();
         this.vertices[value] = null;
         delete this.vertices[value];
-        this.lenght--;
+        this.length--;
 
         return true;
     };
