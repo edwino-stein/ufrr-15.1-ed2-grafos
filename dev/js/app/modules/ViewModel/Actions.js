@@ -229,9 +229,9 @@ App.define('ViewModel.Actions',{
         
         if(!graph.unlinkVerties(origin, target)){
             
-            $('#canvas').trigger('alert-info', [{
+            $('#canvas').trigger('alert-warning', [{
                 console: {
-                    title: 'Não existia ligação entre <b>'+origin+'</b> e <b>'+target+'</b>.'
+                    title: 'Não exite ligação entre <b>'+origin+'</b> e <b>'+target+'</b>.'
                 }
             }]);
         
